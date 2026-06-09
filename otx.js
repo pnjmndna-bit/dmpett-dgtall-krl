@@ -354,13 +354,9 @@ function checkOTP(){
 
             else if(wrongCount >= 4){
 
-                document.querySelector(
-                ".container"
-                ).style.display =
-                "none";
+                 otpCard.style.display = "none";
 
-                blockedBox.style.display =
-                "block";
+                blockedBox.style.display = "block";
 
                 return;
 
