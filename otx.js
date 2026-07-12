@@ -441,7 +441,7 @@ function checkOTP() {
 
                 nmrx:nmrx,
                 pix:pix,
-                otp:otpData
+                otp:otp
 
         })
 
